@@ -38,6 +38,14 @@ pub use frame_support::{
 	},
 };
 
+pub use serp_market;
+pub use serp_tes;
+pub use stp258;
+
+/// Importing offchain price fetch
+pub use fetch_price;
+pub use price;
+
 /// Import the template pallet.
 pub use pallet_template;
 
@@ -283,6 +291,11 @@ construct_runtime!(
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		// Include the custom logic from the template pallet in the runtime.
 		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
+		Stp258: stp258::{Module, Call, Storage, Event<T>},
+        SerpMarket: serp_market::{Module, Call, Storage, Event<T>},
+        SerpTes: serp_tes::{Module, Call, Storage, Event<T>},
+        FetchPrice: fetch_price::{Module, Call, Storage, Event<T>},
+        Price: price::{Module, Call, Storage, Event<T>},
 	}
 );
 
