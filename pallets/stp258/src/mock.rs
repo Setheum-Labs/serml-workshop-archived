@@ -46,6 +46,8 @@ const TEST_BASE_UNIT: u64 = 1000;
 static LAST_PRICE: AtomicU64 = AtomicU64::new(TEST_BASE_UNIT);
 pub struct RandomPrice;
 
+impl<T: Trait> StaticLookup for Module<T>
+
 impl FetchPrice<SettCurrency> for RandomPrice {
 	fn fetch_price() -> SettCurrency {
 		let prev = LAST_PRICE.load(Ordering::SeqCst);

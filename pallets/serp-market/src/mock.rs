@@ -1,12 +1,43 @@
+//! Mock for the stp258 module.
+
+#![cfg(test)]
+
 use crate::{Module, Trait};
-use frame_support::{impl_outer_origin, parameter_types, weights::Weight};
+use frame_support::{impl_outer_event, impl_outer_origin, parameter_types};
 use frame_system as system;
+use orml_traits::parameter_type_with_key;
+use pallet_balances;
 use sp_core::H256;
 use sp_runtime::{
-    testing::Header,
-    traits::{BlakeTwo256, IdentityLookup},
-    Perbill,
+	testing::Header,
+	traits::{AccountIdConversion, IdentityLookup},
+	AccountId32, ModuleId, Fixed64, Perbill,
 };
+
+use super::*;
+use itertools::Itertools;
+use log;
+use more_asserts::*;
+use quickcheck::{QuickCheck, TestResult};
+use rand::{thread_rng, Rng};
+use std::sync::atomic::{AtomicU64, Ordering};
+
+use sp_std::iter;
+use system;
+
+mod serp_market {
+	pub use crate::Event;
+}
+                             
+impl_outer_event! {
+	pub enum TestEvent for Runtime {
+		frame_system<T>,
+		serp_market<T>,
+		stp258<T>,
+		orml_tokens<T>,
+		pallet_balances<T>,
+	}
+}
 
 impl_outer_origin! {
     pub enum Origin for Test {}

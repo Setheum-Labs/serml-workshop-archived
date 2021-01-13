@@ -40,33 +40,41 @@
 
 use codec::Codec;
 use frame_support::{
+	sp_runtime::{
+		traits::{
+			CheckedSub, 
+			MaybeSerializeDeserialize, 
+			StaticLookup, 
+			Zero
+		},
+		DispatchError, 
+		DispatchResult,
+	},
+	sp_std::{
+		convert::{
+			TryFrom, TryInto,
+		},
+		fmt::Debug,
+		marker, result,
+	},
 	decl_error, decl_event, decl_module, decl_storage,
 	traits::{
 		Currency as PalletCurrency, ExistenceRequirement, Get, LockableCurrency as PalletLockableCurrency,
 		ReservableCurrency as PalletReservableCurrency, WithdrawReasons,
 	},
-	weights::Weight,
+	weights::Weight, debug
 };
 use frame_system::{ensure_root, ensure_signed};
-use sp_runtime::{
-	traits::{CheckedSub, MaybeSerializeDeserialize, StaticLookup, Zero},
-	DispatchError, DispatchResult,
-};
-use sp_std::{
-	convert::{TryFrom, TryInto},
-	fmt::Debug,
-	marker, result,
-};
 
 use orml_traits::{
 	account::MergeAccount,
 	arithmetic::{Signed, SimpleArithmetic},
 	BalanceStatus, BasicCurrency, BasicCurrencyExtended, BasicLockableCurrency, BasicReservableCurrency,
-	LockIdentifier, SettCurrency, SettCurrencyExtended, LockableSettCurrency, ReservableSettCurrency,
+	LockIdentifier, MultiCurrency, MultiCurrencyExtended, MultiLockableCurrency, MultiReservableCurrency,
 };
 use orml_utilities::with_transaction_result;
 
-mod default_weight;
+use config::*;
 
 #[cfg(test)]
 mod mock;
