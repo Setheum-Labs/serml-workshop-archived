@@ -1,0 +1,14 @@
+{
+    "CurrencyId": {
+        "_enum": [
+            "Native",
+            "JUSD",
+            "JCNY",
+            "JNGN",
+            "SETT"
+        ]
+    },
+    "CurrencyIdOf": "CurrencyId",
+    "Amount": "i128",
+    "AmountOf": "Amount"
+}
